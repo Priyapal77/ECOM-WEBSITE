@@ -83,15 +83,15 @@
 
         </div>
 
-         <!-- Footer -->
-         <footer class="shadow-lg bg-white pt-4 text-dark">
+        <!-- Footer -->
+        <footer class="shadow-lg bg-white pt-4 text-dark">
             <div class="container text-md-start text-center">
                 <div class="row">
                     <div class="col-sm-6 col-md-3 mb-4">
                         <h4 class="fw-bold">ECOM</h4>
                         <ul class="list-unstyled">
-                            <li><i class="bi bi-geo-alt"></i> avadh vihar callony bagh no-3 kanpur road lucknow</li>
-                            <li><i class="bi bi-telephone"></i> Phone: 8953716845</li>
+                            <li><i class="bi bi-geo-alt"></i> Avadh Vihar Colony Bagh No-3 Kanpur Road Lucknow</li>
+                            <li><i class="bi bi-telephone"></i> Phone: 555-555-5555</li>
                             <li><i class="bi bi-envelope-at"></i>
                                 <a href="mailto:info@example.com"
                                     class="text-decoration-none text-dark">pp7068030@gmail.com</a>
@@ -158,14 +158,15 @@
                     <div class="col-12">
                         <p class="text-center">Developer: <strong>Priya Pal || IT Engineer</strong></p>
                         <p class="text-center"><strong>+91 7753961365</strong> ||
-                            <strong>pp7068030@gmail.com</strong></p>
+                            <strong>pp7068030@gmail.com</strong>
+                        </p>
                         <p class="text-center mt-3">&copy; 2025 ECOM. All rights reserved.</p>
                     </div>
                 </div>
             </div>
         </footer>
 
-        
+
         <script>
             let allProducts = [];
             let cart = JSON.parse(localStorage.getItem('cart')) || []
@@ -200,7 +201,7 @@
                     </div>      
                     <div class="card-footer ">
                         <button class="btn btn-primary add-to-cart" data-id="${product.id}">Add To Cart</button>
-                        <button class="btn btn-success">View Details</button>
+                        <button class="btn btn-success view-details" data-id="${product.id}">View Details</button>
                     </div>
 
                     `
@@ -208,6 +209,7 @@
                 });
 
 
+                //Add to Cart
                 document.querySelectorAll('.add-to-cart').forEach(button => {
                     button.addEventListener('click', function () {
                         const productId = parseInt(this.getAttribute('data-id'));
@@ -215,6 +217,24 @@
                         addToCart(productId)
                     })
                 })
+
+                //View Details
+                document.querySelectorAll('.view-details').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const productId = parseInt(this.getAttribute('data-id'))
+                        viewDetails(productId)
+                        console.log(productId)
+                    })
+                })
+            }
+
+            //View Detials
+            function viewDetails(productId) {
+                const product = allProducts.find(p => p.id === productId)
+                if (product) {
+                    sessionStorage.setItem('selectedProducts',JSON.stringify(product))
+                }
+                window.location.href = 'Details.html'
             }
 
 
@@ -276,10 +296,10 @@
             })
 
             //Search Functionality
-            document.getElementById("inputSearch").addEventListener('input',function(){
-              const query =  this.value.toLowerCase();
-              const filteredProducts =  allProducts.filter(product => product.title.toLowerCase().includes(query) || product.description.toLowerCase().includes(query))
-              displayProducts(filteredProducts)
+            document.getElementById("inputSearch").addEventListener('input', function () {
+                const query = this.value.toLowerCase();
+                const filteredProducts = allProducts.filter(product => product.title.toLowerCase().includes(query) || product.description.toLowerCase().includes(query))
+                displayProducts(filteredProducts)
             })
 
 
